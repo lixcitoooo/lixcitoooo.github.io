@@ -477,17 +477,22 @@ var ADMIN_PASS = "gusgus1929"; // CONTRASEÑA PARA TUS COMANDOS GLOBALES
   // NUEVO SISTEMA DE REPRODUCCIÓN AUTOMÁTICA (AUTOPLAY INTELIGENTE)
   // ========================================================
   // Esperamos el primer clic del visitante en cualquier parte de la pantalla
-  function iniciarMusicaFondo() {
+  function iniciarMusicaFondo(e) {
+    // Si el modal de registro está visible, no iniciamos la música todavía
+    var modalOverlay = document.getElementById('modalOverlay');
+    if (modalOverlay && modalOverlay.classList.contains('is-visible')) {
+      return; 
+    }
+
     // Si la música está pausada, la iniciamos
     if (audio.paused) {
       playTrack();
     }
-    // Una vez que empieza a sonar, destruimos esta orden para que no interfiera 
-    // si más adelante el usuario decide pausar la música manualmente.
+    // Una vez que empieza a sonar, destruimos esta orden
     document.removeEventListener('click', iniciarMusicaFondo);
   }
 
-  // Activar la trampa: escuchar el primer clic en la página
+  // Activar la trampa: escuchar clics en la página
   document.addEventListener('click', iniciarMusicaFondo);
 
   // Eventos de los botones de tu diseño
@@ -702,11 +707,23 @@ archiveLinks.forEach(function (link) {
     var modalOverlay = document.getElementById('modalOverlay');
     var modalCloseX = document.getElementById('modalCloseX');
 
-    modalTitle.textContent = "LOGIN.EXE - Registro de Usuario";
+    modalTitle.textContent = "LOGIN.EXE - Acceso al Chat";
     modalBody.innerHTML = `
-        <p style="margin-bottom: 10px;">¡Bienvenido a la bitácora! Elige un nombre de usuario único para interactuar en el chatbox:</p>
+        <p style="margin-bottom: 10px;">¡Bienvenido a la bitácora! Ingresa un apodo y una contraseña (PIN) para participar:</p>
         <input type="text" id="newBlogUser" class="bevel-in-thin" placeholder="Tu apodo aquí..." 
-               style="width: 100%; padding: 5px; font-family: var(--font-ui); background: #fff; color: #000; border: none;">
+               style="width: 100%; padding: 5px; margin-bottom: 8px; font-family: var(--font-ui); background: #fff; color: #000; border: none;">
+        <input type="password" id="newBlogPass" class="bevel-in-thin" placeholder="Contraseña (PIN)..." 
+               style="width: 100%; padding: 5px; margin-bottom: 5px; font-family: var(--font-ui); background: #fff; color: #000; border: none;">
+        <p style="font-size: 10px; color: #777; margin-bottom: 15px; line-height: 1.2;">
+           *Nota: Este PIN se guarda de forma básica. ¡Por favor NO uses tu contraseña real de bancos o redes sociales!
+        </p>
+        <div style="display: flex; gap: 10px;">
+           <button class="bevel-out" id="btnRegister" style="flex: 1; padding: 5px; font-family: var(--font-ui);">Crear Cuenta Nueva</button>
+           <button class="bevel-out" id="btnLogin" style="flex: 1; padding: 5px; font-family: var(--font-ui);">Iniciar Sesión</button>
+        </div>
+        <div style="margin-top: 10px; text-align: center;">
+           <button class="bevel-out" id="btnGuest" style="width: 100%; padding: 5px; font-family: var(--font-ui);">Entrar como Invitado</button>
+        </div>
       `;
 
     modalOverlay.classList.add('is-visible');
@@ -717,31 +734,67 @@ archiveLinks.forEach(function (link) {
     // Para evitar que el eventListener genérico cierre el modal, clonamos el botón OK
     var newModalOk = modalOk.cloneNode(true);
     modalOk.parentNode.replaceChild(newModalOk, modalOk);
+    newModalOk.style.display = 'none'; // Ocultamos el botón "Aceptar" genérico
 
-    newModalOk.addEventListener('click', function (e) {
+    var btnRegister = document.getElementById('btnRegister');
+    var btnLogin = document.getElementById('btnLogin');
+    var btnGuest = document.getElementById('btnGuest');
+
+    function handleAuth(isLogin) {
       var inputUser = document.getElementById('newBlogUser').value.trim();
-      if (inputUser.length >= 3) {
-        if (!SUPABASE_URL || !SUPABASE_KEY) {
-           finishRegistration(inputUser);
-           return;
-        }
-        
-        newModalOk.textContent = 'Verificando...';
-        newModalOk.disabled = true;
+      var inputPass = document.getElementById('newBlogPass').value.trim();
+      
+      if (inputUser.length < 3) {
+        alert("El nombre de usuario debe tener al menos 3 caracteres.");
+        return;
+      }
+      
+      if (!SUPABASE_URL || !SUPABASE_KEY) {
+         finishRegistration(inputUser);
+         return;
+      }
+      
+      var targetBtn = isLogin ? btnLogin : btnRegister;
+      var otherBtn = isLogin ? btnRegister : btnLogin;
+      targetBtn.textContent = 'Verificando...';
+      targetBtn.disabled = true;
+      otherBtn.disabled = true;
+      btnGuest.disabled = true;
 
-        fetch(SUPABASE_URL + '/rest/v1/mensajes?select=nombre&nombre=ilike.' + encodeURIComponent(inputUser) + '&limit=1', {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_KEY
-          }
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.length > 0) {
-            alert("Este nombre de usuario ya está en uso. Por favor, elige otro.");
-            newModalOk.textContent = 'Aceptar';
-            newModalOk.disabled = false;
+      fetch(SUPABASE_URL + '/rest/v1/mensajes?select=*&nombre=ilike.' + encodeURIComponent(inputUser), {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        var isExisting = (data && data.length > 0);
+        
+        if (isLogin) {
+          if (isExisting) {
+            var regRow = data.find(m => m.mensaje.startsWith('SYS_USER_REGISTRATION'));
+            if (regRow) {
+              var savedPass = regRow.mensaje.split(':')[1] || '';
+              if (savedPass === inputPass && inputPass !== '') {
+                finishRegistration(inputUser); // OK
+              } else {
+                alert("Contraseña incorrecta.");
+              }
+            } else {
+              alert("Este usuario existe pero no tiene contraseña registrada.");
+            }
           } else {
+            alert("El usuario '" + inputUser + "' no existe. Crea una cuenta nueva.");
+          }
+          targetBtn.textContent = 'Iniciar Sesión';
+        } else {
+          // Register
+          if (isExisting) {
+            alert("Este nombre de usuario ya está en uso. Por favor, elige otro.");
+            targetBtn.textContent = 'Crear Cuenta Nueva';
+          } else {
+            var msgRegistro = 'SYS_USER_REGISTRATION' + (inputPass ? ':' + inputPass : '');
             fetch(SUPABASE_URL + '/rest/v1/mensajes', {
               method: 'POST',
               headers: {
@@ -749,19 +802,29 @@ archiveLinks.forEach(function (link) {
                 'Authorization': 'Bearer ' + SUPABASE_KEY,
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({ nombre: inputUser, mensaje: 'SYS_USER_REGISTRATION' })
+              body: JSON.stringify({ nombre: inputUser, mensaje: msgRegistro })
             }).then(() => finishRegistration(inputUser))
               .catch(() => finishRegistration(inputUser));
+            return; // Evita re-habilitar los botones inmediatamente si fue exitoso
           }
-        })
-        .catch(err => {
-          console.error("Error verificando usuario", err);
-          finishRegistration(inputUser);
-        });
+        }
+        
+        targetBtn.disabled = false;
+        otherBtn.disabled = false;
+        btnGuest.disabled = false;
+      })
+      .catch(err => {
+        console.error("Error verificando usuario", err);
+        finishRegistration(inputUser);
+      });
+    }
 
-      } else {
-        alert("El nombre de usuario debe tener al menos 3 caracteres.");
-      }
+    btnRegister.addEventListener('click', function(e) { handleAuth(false); });
+    btnLogin.addEventListener('click', function(e) { handleAuth(true); });
+    
+    btnGuest.addEventListener('click', function(e) {
+      var guestName = "Invitado_" + Math.floor(Math.random() * 10000);
+      finishRegistration(guestName);
     });
 
     function finishRegistration(inputUser) {
@@ -769,9 +832,15 @@ archiveLinks.forEach(function (link) {
         modalOverlay.classList.remove('is-visible');
         modalBody.textContent = "";
         if(modalCloseX) modalCloseX.style.display = ''; // restaurar
-        alert("Usuario '" + inputUser + "' registrado con éxito. ¡Disfruta del blog!");
+        alert("Autenticado como '" + inputUser + "'. ¡Disfruta del blog!");
         
-        // Restaurar evento genérico de cerrar
+        // Iniciar la música automáticamente al entrar al blog (si estaba pausada)
+        if (typeof playTrack === 'function' && audio.paused) {
+           playTrack();
+        }
+
+        // Restaurar evento genérico de cerrar y mostrar botón Aceptar
+        newModalOk.style.display = '';
         newModalOk.addEventListener('click', function() { modalOverlay.classList.remove('is-visible'); });
         newModalOk.textContent = 'Aceptar';
         newModalOk.disabled = false;
