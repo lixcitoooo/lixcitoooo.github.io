@@ -29,7 +29,7 @@ ESPECIFICACIONES DEL SISTEMA
 
 <div style="display: flex; font-size: 13.5px;">
 <div style="width: 100px; color: #888;">PLATAFORMA:</div>
-<div style="flex: 1; color: #d4d4d4;">Neocities</div>
+<div style="flex: 1; color: #d4d4d4;">GitHub</div>
 </div>
 </div>
 
