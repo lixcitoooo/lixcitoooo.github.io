@@ -1,0 +1,33 @@
+<div id="tab-ensayos" class="tab-pane">
+  
+  <!-- =================================================== -->
+  <!-- VISTA DE LISTA (ÍNDICE DE ENSAYOS)                  -->
+  <!-- =================================================== -->
+  <div id="ensayos-lista">
+
+    
+    <!-- Aquí se inyectarán los ensayos dinámicamente desde codigo.js -->
+    <div id="ensayos-container">
+      <p style="color: var(--crt-green);">Cargando ensayos...</p>
+    </div>
+  </div>
+
+  <!-- =================================================== -->
+  <!-- VISTA DE LECTOR (MARKDOWN)                          -->
+  <!-- =================================================== -->
+  <div id="ensayos-lector" style="display: none;">
+    <div class="panel bevel-out" style="margin-bottom: 15px;">
+      <div class="panel-header dark" style="background: #00003c; color: #fff; font-size: 13px; display: flex; justify-content: space-between; align-items: center;">
+        <span id="ensayos-lector-titulo">📄 Leyendo...</span>
+        <button id="btn-volver-ensayos" class="bevel-out" style="padding: 2px 8px; font-family: var(--font-ui); font-size: 11px; color: #000; cursor: url('Media/Img/imperdible-abierto-48.png') 31 8, pointer;">◀ Volver</button>
+      </div>
+      <div class="panel-body dark">
+        <div id="ensayos-lector-contenido" class="markdown-reader bevel-in">
+          <!-- Contenido del ensayo -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+    

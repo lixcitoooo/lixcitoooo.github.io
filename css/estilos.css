@@ -1,0 +1,2209 @@
+/* ============================================================
+   BITÁCORA POLÍTICA Y PERSONAL — Tema retro Win95 / Cyber Y2K
+   Archivo único HTML/CSS/JS. Sin dependencias externas.
+   Busca los bloques "PERSONALIZACIÓN" para editar rápido.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. VARIABLES GLOBALES — cambia aquí para retematizar todo
+   ------------------------------------------------------------ */
+:root {
+  /* Cromo clásico gris del sistema operativo */
+  --face: #C0C0C0;
+  --face-light: #DFDFDF;
+  --face-dark: #808080;
+  --border-hi: #ffffff;
+  --border-lo: #1a1a1a;
+
+  /* Barra de título (degradado azul clásico) */
+  --title-blue-1: #00003c;
+  --title-blue-2: #1e5fa8;
+  --title-blue-3: #4fa8e0;
+
+  /* Paneles de contenido (ensayos, opiniones, actualidad) */
+  --panel-dark-1: #C0C0C0;
+  --panel-dark-2: #C0C0C0;
+  --panel-dark-edge: #808080;
+
+  /* Texto */
+  --text-dark: #101214;
+  --text-light: #eef0f2;
+  --text-muted: #a8adb6;
+  --link-color: #0000aa;
+  --link-color-dark: #7fc4ff;
+
+  /* Acento CRT para el reproductor */
+  --crt-green: #39ff8c;
+  --crt-amber: #ffb020;
+
+  /* Tipografía — fuentes de sistema, sin conexión externa */
+  --font-ui: "Share Tech Mono", monospace;
+  --font-mono: "Share Tech Mono", monospace;
+}
+
+/* ------------------------------------------------------------
+   2. RESET BÁSICO
+   ------------------------------------------------------------ */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-ui);
+  color: var(--text-dark);
+  -webkit-font-smoothing: none;
+  cursor: url('../Media/Img/imperdible-cerrado-48.png') 31 8, default !important;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--link-color);
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Cursores interactivos retro para enlaces, botones y menús */
+a,
+a *,
+button,
+button *,
+.menu-item,
+.menu-item *,
+.tb-btn,
+.tb-btn *,
+.buscador-btn,
+.buscador-btn *,
+.pdf-toolbar button,
+.pdf-toolbar button *,
+.scrolllist__item,
+.scrolllist__item *,
+.nav-btn,
+.nav-btn *,
+.p-btn,
+.p-btn *,
+.lix-cyber-badge,
+.lix-cyber-badge *,
+.jaula-container,
+.jaula-container *,
+.desktop-icon,
+.desktop-icon *,
+.title-bar,
+.title-bar *,
+input[type="range"],
+input[type="submit"] {
+  cursor: url('../Media/Img/imperdible-abierto-48.png') 31 8, pointer !important;
+}
+
+input[type="text"],
+input[type="search"],
+textarea {
+  cursor: text !important;
+}
+
+/* ------------------------------------------------------------
+   3. FONDO DE ESCRITORIO (PERSONALIZACIÓN)
+   ------------------------------------------------------------
+   Reemplaza el valor de --desktop-bg-image por tu propia imagen
+   de collage/textura. Ejemplo:
+   .desktop{ background-image: url('tu-imagen.jpg'); }
+   Mientras tanto se usa un patrón CSS en escala de grises como
+   marcador de posición limpio.
+   ------------------------------------------------------------ */
+.desktop {
+  min-height: 100vh;
+  padding: 28px 14px 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-image: url("../Media/Img/fondo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Efecto estática y scanlines sobre el fondo */
+.desktop::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(0, 255, 0, 0.05), rgba(0, 0, 255, 0.1));
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+  z-index: 1;
+  animation: tvFlicker 3s infinite;
+}
+
+/* Barra gruesa de barrido de TV antigua */
+.desktop::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vh;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  z-index: 1;
+  animation: crtRoll 6s linear infinite;
+}
+
+@keyframes tvFlicker {
+  0% {
+    opacity: 0.95;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes crtRoll {
+  0% {
+    transform: translateY(-10vh);
+    opacity: 0.6;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(110vh);
+    opacity: 0.6;
+  }
+}
+
+/* ------------------------------------------------------------
+   4. UTILIDADES DE RELIEVE 3D (estilo Win95 outset/inset)
+   ------------------------------------------------------------ */
+.bevel-out {
+  border-top: 2px solid var(--border-hi);
+  border-left: 2px solid var(--border-hi);
+  border-right: 2px solid var(--border-lo);
+  border-bottom: 2px solid var(--border-lo);
+  box-shadow:
+    inset 1px 1px 0 var(--face-light),
+    inset -1px -1px 0 var(--face-dark);
+}
+
+.bevel-in {
+  border-top: 2px solid var(--border-lo);
+  border-left: 2px solid var(--border-lo);
+  border-right: 2px solid var(--border-hi);
+  border-bottom: 2px solid var(--border-hi);
+  box-shadow:
+    inset 1px 1px 0 var(--face-dark),
+    inset -1px -1px 0 var(--face-light);
+}
+
+.bevel-out-thin {
+  border-top: 1px solid var(--border-hi);
+  border-left: 1px solid var(--border-hi);
+  border-right: 1px solid var(--border-lo);
+  border-bottom: 1px solid var(--border-lo);
+}
+
+.bevel-in-thin {
+  border-top: 1px solid var(--border-lo);
+  border-left: 1px solid var(--border-lo);
+  border-right: 1px solid var(--border-hi);
+  border-bottom: 1px solid var(--border-hi);
+}
+
+/* ------------------------------------------------------------
+   5. VENTANA PRINCIPAL DEL SISTEMA
+   ------------------------------------------------------------ */
+.os-window-wrapper {
+  width: 100%;
+  max-width: 1250px;
+  transition: opacity .15s ease, transform .15s ease;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.os-window-top,
+.os-window-panel {
+  background: var(--face);
+}
+
+.os-window-wrapper.bevel-out {
+  border-width: 2px;
+}
+
+.os-window-wrapper.is-closed {
+  display: none;
+}
+
+.os-window-wrapper.is-minimized .window-body,
+.os-window-wrapper.is-minimized .status-bar {
+  display: none;
+}
+
+.os-window-wrapper.is-maximized {
+  position: fixed;
+  inset: 10px;
+  max-width: none;
+  width: auto;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+}
+
+.os-window-wrapper.is-maximized .window-body {
+  flex: 1;
+  overflow: auto;
+}
+
+.os-window-wrapper.is-dragging {
+  position: fixed;
+  z-index: 600;
+}
+
+/* --- Barra de título --- */
+.title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  background: linear-gradient(90deg, var(--title-blue-1) 0%, var(--title-blue-2) 55%, var(--title-blue-3) 100%);
+  color: #fff;
+  cursor: grab;
+  user-select: none;
+}
+
+.os-window-wrapper.is-dragging .title-bar {
+  cursor: grabbing;
+}
+
+.title-bar-text {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
+}
+
+.title-bar-controls {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.tb-btn {
+  width: 19px;
+  height: 17px;
+  background: var(--face);
+  border: none;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.tb-btn.bevel-out:active {
+  border: none;
+}
+
+.tb-btn:active {
+  border-top: 1px solid var(--border-lo);
+  border-left: 1px solid var(--border-lo);
+  border-right: 1px solid var(--border-hi);
+  border-bottom: 1px solid var(--border-hi);
+  padding-top: 1px;
+  padding-left: 1px;
+}
+
+/* --- Barra de menú --- */
+.menu-bar {
+  display: flex;
+  gap: 2px;
+  background: var(--face);
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--face-dark);
+}
+
+.menu-item {
+  padding: 3px 9px;
+  font-size: 12.5px;
+  border-radius: 1px;
+}
+
+.menu-item:hover {
+  background: var(--title-blue-2);
+  color: #fff;
+}
+
+.menu-item:active {
+  background: var(--title-blue-1);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------
+   6. CUERPO EN 3 COLUMNAS
+   ------------------------------------------------------------ */
+.window-body {
+  display: grid;
+  grid-template-columns: 228px 1fr 264px;
+  gap: 0;
+  align-items: start;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px; /* padding for the individual column windows */
+}
+
+.col-center {
+  min-height: 85vh; /* Maintains a minimum height so the altar doesn't jump up on short tabs */
+}
+
+.col-header {
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  padding: 8px 4px;
+  background: #C0C0C0;
+  color: #000;
+}
+
+/* ------------------------------------------------------------
+   7. PANELES — genéricos (claros y oscuros)
+   ------------------------------------------------------------ */
+.panel {
+  background: #2A2A2A;
+}
+
+.panel-header {
+  padding: 5px 9px;
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-header.light {
+  background: #C0C0C0;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--face-dark);
+}
+
+.panel-header.dark {
+  background: #1A1A1A;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--face-dark);
+}
+
+.panel-body {
+  padding: 10px;
+  background: #C0C0C0;
+}
+
+.panel-body.light {
+  background: #C0C0C0;
+  color: var(--text-dark);
+}
+
+.panel-body.dark {
+  background: #2A2A2A;
+  color: var(--text-dark);
+  font-size: 13px;
+}
+
+.panel-close-x {
+  width: 15px;
+  height: 14px;
+  border: none;
+  background: var(--face);
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* ---------- Columna izquierda: EXPLORACIÓN ---------- */
+.menu-principal .panel-body {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: #C0C0C0;
+}
+
+.nav-btn {
+  width: 100%;
+  padding: 8px 6px;
+  background: var(--face);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .4px;
+  text-align: left;
+  text-transform: uppercase;
+  /* Modificado de center a left para acomodar emojis */
+  color: var(--text-dark);
+  transition: all 0.1s ease;
+  cursor: url('../Media/Img/imperdible-abierto-48.png') 31 8, pointer;
+  /* Cursor personalizado al pasar por botones */
+}
+
+.nav-btn:hover {
+  background: var(--face-light);
+  text-shadow: 0 0 5px rgba(57, 255, 140, 0.4);
+  /* Resplandor CRT sutil */
+}
+
+.nav-btn:active,
+.nav-btn.is-active {
+  border-top: 2px solid var(--border-lo);
+  border-left: 2px solid var(--border-lo);
+  border-right: 2px solid var(--border-hi);
+  border-bottom: 2px solid var(--border-hi);
+  box-shadow: inset 1px 1px 0 var(--face-dark), inset -1px -1px 0 var(--face-light);
+  background: var(--face-dark);
+  color: var(--crt-green);
+  /* Texto verde brillante al estar activo */
+  text-shadow: 0 0 3px var(--crt-green);
+}
+
+.buscador .panel-body {
+  display: flex;
+  gap: 6px;
+  padding: 9px;
+  background: #C0C0C0;
+}
+
+.buscador input[type="text"] {
+  flex: 1;
+  padding: 5px 6px;
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  background: #fff;
+  color: var(--text-dark);
+  border: none;
+}
+
+.buscador-btn {
+  width: 30px;
+  flex-shrink: 0;
+  background: var(--face);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.visitor-count .panel-body {
+  padding: 10px;
+  background: #C0C0C0;
+}
+
+.visitor-frame {
+
+  padding: 10px 8px;
+  background: #C0C0C0;
+  border: 4px ridge #808080;
+}
+
+.odometer {
+  background: #000;
+  padding: 8px 6px;
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  border-top: 2px solid #555;
+  border-left: 2px solid #555;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  box-shadow: inset 1px 1px 2px #000;
+}
+
+.odometer span {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--crt-green);
+  /* Verde brillante LED retro */
+  text-shadow: 0 0 6px var(--crt-green);
+  /* Efecto brillo incandescente */
+  background: linear-gradient(180deg, #001100 0%, #003300 50%, #001100 100%);
+  width: 22px;
+  text-align: center;
+  border-left: 1px solid #002000;
+  border-right: 1px solid #002000;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+}
+
+.visitor-label {
+  text-align: center;
+  font-size: 9.5px;
+  letter-spacing: 1px;
+  color: var(--text-dark);
+  margin-top: 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* ---------- Columna central: ENSAYOS Y PENSAMIENTOS ---------- */
+.entry {
+  display: flex;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--face-dark);
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+.entry-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  width: 30px;
+  text-align: center;
+  line-height: 1;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, .5));
+}
+
+.entry-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  margin: 0 0 3px;
+  color: var(--text-dark);
+}
+
+.entry-title .fecha {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.entry-link {
+  color: var(--link-color);
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.opinion {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--face-dark);
+}
+
+.opinion:last-child {
+  border-bottom: none;
+}
+
+.opinion-title {
+  font-weight: 700;
+  font-size: 13px;
+  margin: 0 0 2px;
+  color: var(--text-dark);
+}
+
+.opinion-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.opinion-excerpt {
+  font-size: 12.5px;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.archivo-index {
+  padding: 9px 10px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: #2A2A2A;
+}
+
+.archivo-index b {
+  color: var(--text-dark);
+}
+
+.archivo-index a {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+.archivo-list {
+  margin: 0 10px 10px;
+  height: 150px;
+  overflow-y: auto;
+  background: #fff;
+  padding: 6px 8px;
+  font-size: 12px;
+  color: var(--text-dark);
+  line-height: 1.65;
+}
+
+.archivo-list li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.archivo-list li::before {
+  content: "- ";
+}
+
+/* Scrollbar clásico gris (WebKit) */
+.archivo-list::-webkit-scrollbar,
+.chat-log::-webkit-scrollbar {
+  width: 16px;
+}
+
+.archivo-list::-webkit-scrollbar-track,
+.chat-log::-webkit-scrollbar-track {
+  background: var(--face);
+}
+
+.archivo-list::-webkit-scrollbar-thumb,
+.chat-log::-webkit-scrollbar-thumb {
+  background: var(--face);
+  border-top: 2px solid var(--border-hi);
+  border-left: 2px solid var(--border-hi);
+  border-right: 2px solid var(--border-lo);
+  border-bottom: 2px solid var(--border-lo);
+}
+
+.archivo-list,
+.chat-log {
+  scrollbar-width: auto;
+  scrollbar-color: var(--face-dark) var(--face);
+}
+
+/* ---------- Columna derecha: PERFIL Y ACTUALIDAD ---------- */
+.sobre-mi .panel-body {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  background: #C0C0C0;
+}
+
+.profile-photo {
+  width: 90px;
+  min-height: 90px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background-color: var(--face-dark);
+  background-image: url('../Media/Img/yo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.profile-photo:hover {
+  filter: contrast(150%) brightness(120%) saturate(80%);
+  box-shadow: inset 0 0 10px var(--crt-green);
+  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0)
+  }
+
+  20% {
+    transform: translate(-2px, 1px)
+  }
+
+  40% {
+    transform: translate(-1px, -1px)
+  }
+
+  60% {
+    transform: translate(2px, 1px)
+  }
+
+  80% {
+    transform: translate(1px, -1px)
+  }
+
+  100% {
+    transform: translate(0)
+  }
+}
+
+.profile-bio {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  align-self: center;
+}
+
+.actualidad-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.actualidad-item {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.actualidad-icon {
+  font-size: 20px;
+  width: 26px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.actualidad-label {
+  font-size: 10.5px;
+  letter-spacing: .5px;
+  color: #000000;
+  font-weight: 600;
+}
+
+.actualidad-value {
+  font-size: 12.5px;
+  color: #000000;
+}
+
+/* --- Web Deck Player (skin estilo Winamp) --- */
+
+.player {
+  background: #0C0F12;
+  border: 2px solid #000;
+  box-shadow: inset 0 0 0 1px var(--face-dark);
+  padding: 8px;
+}
+
+.player-screen {
+  background: #0b1a10;
+  padding: 6px 8px;
+  font-family: var(--font-mono);
+  color: var(--crt-green);
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: inset 0 0 6px #000;
+}
+
+.player-marquee {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 9s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.player-eq-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.player-time {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--crt-amber);
+}
+
+.player-controls {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.p-btn {
+  flex: 1;
+  height: 24px;
+  background: #1c2027;
+  color: #cfd3d9;
+  border: 1px solid #000;
+  box-shadow: inset 1px 1px 0 #3a3f46;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-btn:active {
+  box-shadow: inset -1px -1px 0 #3a3f46;
+}
+
+.player-eq {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+  height: 16px;
+  flex: 1;
+}
+
+.player-eq span {
+  width: 5px;
+  background: var(--crt-green);
+  height: 20%;
+  transition: height .15s ease;
+}
+
+.player.is-playing .player-eq span {
+  animation: eqbounce 1s ease-in-out infinite;
+}
+
+.player-eq span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.player-eq span:nth-child(2) {
+  animation-delay: .1s;
+}
+
+.player-eq span:nth-child(3) {
+  animation-delay: .2s;
+}
+
+.player-eq span:nth-child(4) {
+  animation-delay: .3s;
+}
+
+.player-eq span:nth-child(5) {
+  animation-delay: .15s;
+}
+
+.player-eq span:nth-child(6) {
+  animation-delay: .25s;
+}
+
+.player-eq span:nth-child(7) {
+  animation-delay: .05s;
+}
+
+.player-eq span:nth-child(8) {
+  animation-delay: .35s;
+}
+
+@keyframes eqbounce {
+
+  0%,
+  100% {
+    height: 15%;
+  }
+
+  50% {
+    height: 90%;
+  }
+}
+
+/* --- Banner LIX (Diseño Neocities 100% CSS) --- */
+.lix-cyber-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  width: 125px;
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+  border: 1px solid #555;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 8px rgba(57, 255, 140, 0.4), 2px 2px 0 #000;
+  cursor: pointer;
+}
+
+.lix-cyber-badge::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 4px,
+      rgba(57, 255, 140, 0.15) 4px,
+      rgba(57, 255, 140, 0.15) 8px);
+  animation: badgePan 3s linear infinite;
+}
+
+.lix-cyber-badge .badge-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lix-cyber-badge .badge-icon {
+  color: #ffb020;
+  font-size: 16px;
+  animation: pulseIcon 1.5s infinite;
+}
+
+.lix-cyber-badge .badge-text {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #000, 0 0 3px var(--crt-green);
+}
+
+@keyframes badgePan {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-22px, -22px);
+  }
+}
+
+@keyframes pulseIcon {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    text-shadow: 0 0 2px #ffb020;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+    text-shadow: 0 0 6px #ffb020;
+  }
+}
+
+/* Banners personalizados en CSS Puro */
+.badge-palestina {
+  background: linear-gradient(to bottom, #000 33.3%, #fff 33.3%, #fff 66.6%, #007a3d 66.6%);
+  border-color: #fff;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.badge-palestina::before {
+  display: none;
+}
+
+/* Sin escáner láser para que se vea la bandera */
+.badge-palestina::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 23px solid transparent;
+  border-bottom: 23px solid transparent;
+  border-left: 45px solid #ce1126;
+  z-index: 1;
+}
+
+.badge-palestina .badge-text {
+  z-index: 2;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000, -1px -1px 0 #000;
+}
+
+.badge-pc {
+  background: #ce1126;
+  /* Rojo comunista */
+  border-color: #ffb020;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.badge-pc::before {
+  display: none;
+}
+
+.badge-pc .badge-icon {
+  color: #ffb020;
+  font-size: 22px;
+  animation: none;
+}
+
+.badge-pc .badge-text {
+  color: #ffb020;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.badge-pride {
+  background: linear-gradient(to bottom, #e40303 16.6%, #ff8c00 16.6%, #ff8c00 33.3%, #ffed00 33.3%, #ffed00 50%, #008026 50%, #008026 66.6%, #24408e 66.6%, #24408e 83.3%, #732982 83.3%);
+  border-color: #fff;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.badge-pride::before {
+  display: none;
+}
+
+.badge-pride .badge-text {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000, -1px -1px 0 #000;
+}
+
+.player-vol {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.player-vol label {
+  font-size: 9.5px;
+  color: #8a8f97;
+  letter-spacing: .5px;
+}
+
+.player-vol input[type="range"] {
+  flex: 1;
+  accent-color: var(--crt-green);
+}
+
+.player-brand {
+  text-align: right;
+  font-size: 9px;
+  color: #565c66;
+  letter-spacing: 1px;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+/* --- Chatbox Retro (Columna Derecha) --- */
+
+.chatbox-panel .panel-header {
+  background: #000080;
+  color: #fff;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  min-height: 140px;
+  background-color: #fff;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.70)), url('../Media/Img/golden-freddy.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  padding: 6px;
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-message {
+  word-wrap: break-word;
+  line-height: 1.3;
+}
+
+.chat-message-time {
+  color: #888;
+  font-size: 9.5px;
+  margin-right: 4px;
+}
+
+.chat-message-name {
+  font-weight: bold;
+  color: #000080;
+}
+
+.chat-message-name.admin {
+  color: #ce1126;
+  /* Rojo comunista para admin */
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chat-form input {
+  padding: 5px 6px;
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  border: none;
+  background: #fff;
+  color: #000;
+}
+
+.chat-send-btn {
+  padding: 5px;
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  font-weight: bold;
+  cursor: url('../Media/Img/imperdible-abierto-48.png') 31 8, pointer;
+}
+
+.chat-send-btn:active {
+  box-shadow: inset 1px 1px 0 var(--face-dark), inset -1px -1px 0 var(--face-light);
+  border-top: 2px solid var(--border-lo);
+  border-left: 2px solid var(--border-lo);
+  border-right: 2px solid var(--border-hi);
+  border-bottom: 2px solid var(--border-hi);
+}
+
+/* ========================================================
+   MARQUESINA CONTINUA (SIN ESPACIOS NEGROS)
+   ======================================================== */
+.retro-marquee-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.retro-marquee-content {
+  display: flex;
+  gap: 20px;
+  animation: retro-scroll 6s linear infinite;
+  /* El width será el doble del original gracias a que duplicaremos el HTML */
+  width: max-content;
+}
+
+.retro-marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes retro-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------
+   8. BARRA DE ESTADO / PIE
+   ------------------------------------------------------------ */
+.status-bar {
+  padding: 6px 10px;
+  background: var(--face);
+  border-top: 2px solid var(--border-hi);
+  text-align: center;
+  font-size: 11.5px;
+}
+
+.status-bar a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.status-bar a:hover {
+  text-decoration: underline;
+  color: var(--title-blue-1);
+}
+
+.status-sep {
+  margin: 0 8px;
+  color: var(--face-dark);
+}
+
+/* ------------------------------------------------------------
+   9. BARRA DE TAREAS (aparece al minimizar/cerrar)
+   ------------------------------------------------------------ */
+.taskbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--face);
+  border-top: 2px solid var(--border-hi);
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  z-index: 700;
+}
+
+.taskbar.is-visible {
+  display: flex;
+}
+
+.start-btn {
+  padding: 5px 12px;
+  background: var(--face);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.taskbar-window-btn {
+  padding: 5px 12px;
+  background: var(--face-light);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   10. MODAL ESTILO CUADRO DE DIÁLOGO
+   ------------------------------------------------------------ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+}
+
+.modal-overlay.is-visible {
+  display: flex;
+}
+
+.modal-box {
+  width: 300px;
+  background: var(--face);
+}
+
+.modal-body {
+  padding: 18px 14px;
+  font-size: 12.5px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  padding: 0 14px 14px;
+}
+
+.modal-actions button {
+  padding: 5px 22px;
+  background: var(--face);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   11. RESPONSIVE — colapsa a una columna en pantallas chicas
+   ------------------------------------------------------------ */
+@media (max-width: 980px) {
+  .window-body {
+    grid-template-columns: 1fr;
+  }
+
+  .title-bar-text {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    padding: 8px 4px 60px;
+  }
+
+  .title-bar-text {
+    font-size: 9.5px;
+  }
+
+  .menu-item {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+
+  .sobre-mi .panel-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profile-photo {
+    width: 100%;
+    min-height: 120px;
+  }
+
+  .profile-bio {
+    align-self: auto;
+  }
+}
+
+/* ============================================================
+   CONTROL DE COLORES PARA LA COLUMNA CENTRAL (ACTUALIZADO)
+   ============================================================ */
+
+/* 1. Color para los títulos de los recuadros ("Ensayos Recientes", "Opiniones Recientes", "Archivo") */
+.col-center .panel-header.dark {
+  color: #ccc !important;
+  /* <--- Color de las barras oscuras */
+}
+
+/* 2. Color para los TÍTULOS Y LAS FECHAS (así quedan del mismo color unificado) */
+.col-center .entry-title,
+.col-center .opinion-title,
+.col-center .fecha,
+.col-center .opinion-date {
+  color: #e0e0e0 !important;
+  /* <--- Cambia este color y cambiará el título y la fecha a la vez */
+}
+
+/* 3. Color para los enlaces de "Leer más" (y links del archivo) */
+.col-center a {
+  color: #aaf !important;
+  /* <--- Color de los links */
+}
+
+/* 4. Color para los textos de los resúmenes y la lista del archivo */
+.col-center .opinion-excerpt,
+.col-center .archivo-list li,
+.col-center .archivo-index {
+  color: #FFFFFF !important;
+  /* <--- Color del texto de los párrafos */
+}
+
+
+/* ============================================================
+   ESTILOS COPIADOS DE RETRO.CSS (RECUADRO DE ARCHIVOS)
+   ============================================================ */
+.archive-block {
+  background: #2a2a2a;
+  border-top: 2px solid var(--face-dark);
+  border-left: 2px solid var(--face-dark);
+  border-right: 2px solid var(--border-hi);
+  border-bottom: 2px solid var(--border-hi);
+  color: #dddddd;
+}
+
+.archive-block__header {
+  background: #1a1a1a;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #cccccc;
+  border-bottom: 1px solid #555;
+  text-align: left;
+}
+
+.archive-block__index {
+  padding: 6px 8px 4px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #cccccc;
+}
+
+.archive-block__index a {
+  color: #aaaaff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0 2px;
+}
+
+.archive-block__index a:hover {
+  color: #ffffff;
+}
+
+.scrolllist {
+  background: #ffffff;
+  color: #000000;
+  margin: 4px 8px 8px;
+  border-top: 2px solid var(--face-dark);
+  border-left: 2px solid var(--face-dark);
+  border-right: 2px solid var(--border-hi);
+  border-bottom: 2px solid var(--border-hi);
+  height: 120px;
+  overflow-y: scroll;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  padding: 2px 4px;
+  line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: var(--face) var(--face-dark);
+}
+
+.scrolllist::-webkit-scrollbar {
+  width: 16px;
+  background: var(--face);
+}
+
+.scrolllist::-webkit-scrollbar-thumb {
+  background: var(--face);
+  border-top: 1px solid var(--border-hi);
+  border-left: 1px solid var(--border-hi);
+  border-right: 1px solid var(--border-lo);
+  border-bottom: 1px solid var(--border-lo);
+}
+
+.scrolllist::-webkit-scrollbar-track {
+  background: var(--face-dark);
+}
+
+.scrolllist__item {
+  padding: 1px 0;
+  border-bottom: 1px dotted #ccc;
+  cursor: pointer;
+}
+
+.scrolllist__item:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+/* ============================================================
+   TAMAÑOS DE LETRA DE LA COLUMNA CENTRAL (COPIADOS DEL ZIP)
+   ============================================================ */
+
+/* Título principal superior de la columna ("ENSAYOS Y PENSAMIENTOS") -> 14px */
+.col-center .col-header {
+  font-size: 14px !important;
+}
+
+/* Cabeceras de las tarjetas ("ENSAYOS RECIENTES", "OPINIONES RECIENTES", "ARCHIVO DE ENSAYOS") -> 12px */
+.col-center .panel-header.dark,
+.col-center .archive-block__header {
+  font-size: 12px !important;
+}
+
+/* Títulos de las publicaciones individuales (ej: "Título: La Democracia en la Era Digital") -> 12px */
+.col-center .entry-title,
+.col-center .opinion-title {
+  font-size: 12px !important;
+}
+
+/* Links de "Leer más" -> 11px */
+.col-center .entry-link {
+  font-size: 11px !important;
+}
+
+/* Extractos o resúmenes de las opiniones -> 11px */
+.col-center .opinion-excerpt {
+  font-size: 11px !important;
+}
+
+/* Índice de años/meses y el contenido de la lista con scroll del archivo -> 11px */
+.col-center .archive-block__index,
+.col-center .scrolllist,
+.col-center .scrolllist__item {
+  font-size: 11px !important;
+}
+
+
+/* ============================================================
+   MEJORAS VISUALES PARA ACTUALIDAD PERSONAL
+   ============================================================ */
+
+/* 1. Cuadrado con relieve para encerrar los emojis */
+.actualidad-icon {
+  width: 32px !important;
+  /* Ancho fijo del cuadrado */
+  height: 32px !important;
+  /* Alto fijo del cuadrado */
+  font-size: 18px !important;
+  /* Tamaño del emoji dentro de la caja */
+  display: flex !important;
+  align-items: center !important;
+  /* Centra el emoji verticalmente */
+  justify-content: center !important;
+  /* Centra el emoji horizontalmente */
+  background: var(--face) !important;
+  /* Fondo gris clásico */
+
+  /* Efecto relieve hacia adentro (borde hundido estilo Win95) */
+  border-top: 1px solid var(--border-lo) !important;
+  border-left: 1px solid var(--border-lo) !important;
+  border-right: 1px solid var(--border-hi) !important;
+  border-bottom: 1px solid var(--border-hi) !important;
+}
+
+/* 2. Línea de separación entre cada actividad y ajuste de alineación */
+.actualidad-item {
+  align-items: center !important;
+  /* Alinea el texto al centro del cuadrado del emoji */
+  padding-bottom: 10px !important;
+  /* Espacio antes de la línea */
+  border-bottom: 1px dotted var(--face-dark) !important;
+  /* Línea punteada retro */
+}
+
+/* Elimina la línea de separación en el último elemento (leyendo) para que no quede flotando abajo */
+.actualidad-item:last-child {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+/* ============================================================
+   INTERCAMBIO DE TAMAÑOS EN ACTUALIDAD PERSONAL
+   ============================================================ */
+
+/* El título ("VIENDO:") pasa de 10.5px a 12.5px (más grande) */
+#actualidadPanel .actualidad-label {
+  font-size: 12.5px !important;
+}
+
+/* El subtítulo ("Película...") pasa de 12.5px a 10.5px (más pequeño) */
+#actualidadPanel .actualidad-value {
+  font-size: 10.5px !important;
+}
+
+/* ============================================================
+   SISTEMA DE PESTAÑAS (MANTIENE LA ESTRUCTURA ORIGINAL)
+   ============================================================ */
+.tab-pane,
+.tab-section {
+  display: none;
+  /* Oculta las pestañas que no están activas */
+}
+
+.tab-pane.is-active,
+.tab-section.is-active {
+  display: flex !important;
+  flex-direction: column;
+  gap: 12px;
+  /* Mantiene la separación idéntica de 12px entre recuadros */
+}
+
+
+/* ============================================================
+   BORDES 3D UNIFICADOS PARA LOS 3 CUADROS DE INICIO
+   ============================================================ */
+#tab-inicio .panel,
+#tab-inicio .archive-block {
+  /* Bordes exteriores (Luz arriba/izquierda, Sombra abajo/derecha) */
+  border-top-color: #808080 !important;
+  /* Color arriba */
+  border-left-color: #808080 !important;
+  /* Color izquierdo */
+  border-right-color: #FFFFFF !important;
+  /* Color derecho */
+  border-bottom-color: #FFFFFF !important;
+  /* Color abajo */
+
+  /* Sombra interna para el efecto de relieve 3D */
+  box-shadow:
+    inset 1px 1px 0 #808080,
+    /* Brillo interno */
+    inset -1px -1px 0 #FFFFFF !important;
+  /* Sombra interna */
+}
+
+/* ============================================================
+   ESTILOS NATIVOS PARA MARKDOWN (ENSAYOS)
+   ============================================================ */
+.ensayo-content {
+  font-family: var(--font-mono);
+  color: #fff;
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+.ensayo-content h1 {
+  font-size: 18px;
+  color: var(--crt-green);
+  border-bottom: 1px solid var(--crt-green);
+  padding-bottom: 5px;
+  margin-top: 0;
+}
+
+.ensayo-content h2 {
+  font-size: 15px;
+  color: var(--crt-amber);
+  margin-top: 20px;
+}
+
+.ensayo-content h3 {
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+.ensayo-content p {
+  margin-bottom: 15px;
+}
+
+.ensayo-content a {
+  color: var(--link-color-dark);
+  text-decoration: underline;
+  cursor: url('../Media/Img/imperdible-abierto-48.png') 31 8, pointer;
+}
+
+.ensayo-content a:hover {
+  background: var(--link-color-dark);
+  color: #000;
+}
+
+.ensayo-content blockquote {
+  border-left: 3px solid var(--crt-green);
+  margin: 10px 0;
+  padding-left: 10px;
+  color: #a8adb6;
+  font-style: italic;
+}
+
+.ensayo-content ul,
+.ensayo-content ol {
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+.ensayo-content li {
+  margin-bottom: 5px;
+  list-style-type: square;
+}
+
+.ensayo-content img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  display: block;
+  margin: 15px auto;
+}
+
+.ensayo-content hr {
+  border: 0;
+  border-top: 1px dashed #808080;
+  margin: 20px 0;
+}
+
+/* Animación para llamar la atención del buscador */
+@keyframes flash-search {
+  0% {
+    background-color: #fff;
+    transform: scale(1);
+  }
+
+  30% {
+    background-color: var(--crt-green);
+    transform: scale(1.02);
+  }
+
+  100% {
+    background-color: #fff;
+    transform: scale(1);
+  }
+}
+
+.flash-search-active {
+  animation: flash-search 0.6s ease-out;
+}
+
+/* ========================================================
+   DISEÑO DEL LECTOR DE ENSAYOS (Terminal Reader)
+   ======================================================== */
+.markdown-reader {
+  background: #000000;
+  color: #d4d4d4;
+  padding: 25px;
+  height: 450px;
+  overflow-y: auto;
+  text-align: left;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+  border: 2px inset #555;
+}
+
+.markdown-reader h1,
+.markdown-reader h2,
+.markdown-reader h3 {
+  color: var(--crt-green);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #333;
+  padding-bottom: 5px;
+}
+
+.markdown-reader p {
+  margin-bottom: 18px;
+}
+
+.markdown-reader a {
+  color: var(--crt-green);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--crt-green);
+}
+
+.markdown-reader a:hover {
+  background: var(--crt-green);
+  color: #000;
+}
+
+.markdown-reader blockquote {
+  background: #0a0a0a;
+  border-left: 4px solid var(--crt-green);
+  margin: 20px 0;
+  padding: 10px 15px;
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+.markdown-reader code {
+  background: #1a1a1a;
+  color: var(--crt-green);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* ========================================================
+   MASCOTA: EYE OF CTHULHU
+   ======================================================== */
+#cthulhu-pet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 850;
+  pointer-events: none;
+}
+
+/* ========================================================
+   LIENZO ESPACIAL (COLUMNA CENTRAL)
+   ======================================================== */
+.espacio-collage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Centra el canvas horizontalmente */
+  width: 100%;
+  /* FUNDAMENTAL para que el container sepa su ancho real */
+  min-width: 0;
+  /* Permite que el flex se encoja */
+  aspect-ratio: 730 / 450;
+  flex-shrink: 0;
+  overflow: hidden;
+  /* Asegura que nunca se salga del contenedor */
+}
+
+.canvas-espacial {
+  position: relative;
+  width: 730px;
+  /* Ancho fijo para que las coordenadas de los elementos no se rompan */
+  height: 450px;
+  /* Vuelve a 450px para mantener la proporcion */
+  flex-shrink: 0;
+  /* Evita que el cuadro cambie de tamaño al achicar la ventana */
+  background-color: #000;
+  transform-origin: center center;
+  /* El escalado lo maneja JavaScript para mayor compatibilidad */
+
+  /* Sin bordes duros para mantener la integración */
+  border: none;
+  border-radius: 8px;
+  /* Ligeramente redondeado */
+
+  /* COMBINACIÓN PERFECTA: 
+     1. El difuminado delgado exterior e interior (0 0 10px, inset 0 0 15px)
+     2. La sombra masiva desde arriba (inset 0 40px 50px) para crear el efecto de hundimiento/hoyo profundo */
+  box-shadow:
+    0 0 10px 2px rgba(0, 0, 0, 0.8),
+    /* Difuminado hacia el blog */
+    inset 0 0 15px 5px #000,
+    /* Difuminado interior del corte */
+    inset 0 40px 50px rgba(0, 0, 0, 0.95);
+  /* El "abismo" (profundidad de la ventana) */
+
+  /* Nebulosas y Estrellas en múltiples capas para realismo y profundidad */
+  background-image:
+    /* Nebulosas profundas (colores) */
+    radial-gradient(circle at 15% 40%, rgba(60, 20, 100, 0.4), transparent 50%),
+    radial-gradient(circle at 85% 60%, rgba(20, 60, 120, 0.35), transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(100, 30, 80, 0.25), transparent 60%),
+
+    /* Estrellas brillantes y cercanas */
+    radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+    radial-gradient(2px 2px at 150px 160px, #fff, transparent),
+    radial-gradient(2px 2px at 280px 80px, #fff, transparent),
+    radial-gradient(3px 3px at 210px 250px, #fff, transparent),
+    radial-gradient(2px 2px at 90px 300px, #fff, transparent),
+
+    /* Estrellas lejanas y tenues */
+    radial-gradient(1px 1px at 20px 30px, #aaa, transparent),
+    radial-gradient(1px 1px at 10px 120px, #aaa, transparent),
+    radial-gradient(1px 1px at 60px 180px, #888, transparent),
+    radial-gradient(1px 1px at 190px 50px, #aaa, transparent),
+    radial-gradient(1px 1px at 290px 30px, #aaa, transparent),
+    radial-gradient(1px 1px at 80px 280px, #777, transparent),
+    radial-gradient(1px 1px at 220px 200px, #aaa, transparent),
+    radial-gradient(1px 1px at 110px 220px, #888, transparent),
+    radial-gradient(1px 1px at 50px 240px, #ccc, transparent),
+    radial-gradient(1px 1px at 250px 270px, #aaa, transparent),
+    radial-gradient(1px 1px at 230px 20px, #eee, transparent),
+    radial-gradient(1px 1px at 120px 10px, #aaa, transparent);
+
+  background-repeat: repeat;
+  /* Tamaños variados para crear efecto Parallax */
+  background-size: 100% 100%, 100% 100%, 100% 100%, 300px 300px, 300px 300px, 300px 300px, 300px 300px, 300px 300px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px;
+
+  border: none;
+  border-radius: 30px;
+  /* Bordes redondeados para suavizar la forma */
+  overflow: hidden;
+
+  /* Animación parallax para que las capas se muevan distinto */
+  animation: drift-stars 120s linear infinite;
+}
+
+@keyframes drift-stars {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 0 0, 0 0, 0 0, -300px 300px, -300px 300px, -300px 300px, -300px 300px, -300px 300px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px, -150px 150px;
+  }
+}
+
+/* ========================================================
+   SEPARADOR ALAMBRE DE PÚAS
+   ======================================================== */
+.barbed-wire-separator {
+  height: 15px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg transform='translate(1, 1)' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M 0 15 Q 20 10 40 15 T 80 15' stroke-width='2'/%3E%3Cpath d='M 0 15 Q 20 20 40 15 T 80 15' stroke-width='2'/%3E%3Cpath d='M 32 5 L 40 15 L 48 5' stroke-width='2'/%3E%3Cpath d='M 32 25 L 40 15 L 48 25' stroke-width='2'/%3E%3Cpath d='M 36 12 C 42 10, 44 20, 38 18' stroke-width='2.5'/%3E%3Cpath d='M 40 11 C 46 9, 48 21, 42 19' stroke-width='2.5'/%3E%3C/g%3E%3Cg stroke='%233a3a3a' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M 0 15 Q 20 10 40 15 T 80 15' stroke-width='2'/%3E%3Cpath d='M 0 15 Q 20 20 40 15 T 80 15' stroke-width='2'/%3E%3Cpath d='M 32 5 L 40 15 L 48 5' stroke-width='2'/%3E%3Cpath d='M 32 25 L 40 15 L 48 25' stroke-width='2'/%3E%3Cpath d='M 36 12 C 42 10, 44 20, 38 18' stroke-width='2.5'/%3E%3Cpath d='M 40 11 C 46 9, 48 21, 42 19' stroke-width='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 15px;
+  /* Lo encoge a la mitad para que sea delgado */
+  background-repeat: repeat-x;
+  background-position: center;
+  margin: 0;
+  background-color: var(--face);
+  border-bottom: 2px groove var(--face-dark);
+}
+
+/* ========================================================
+   MONSTRUO EN CAUTIVERIO (JAULA)
+   ======================================================== */
+.monster-cage-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.monster-cage-panel .panel-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox-panel .panel-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.monster-cage-panel .panel-body {
+  background: #C0C0C0;
+  padding: 8px;
+}
+
+.jaula-container {
+  position: relative;
+  width: 100%;
+  min-height: 130px;
+  background: radial-gradient(circle at center, #ffffff 0%, #A0A0A0 80%);
+  /* Luz en el centro y gris hundido en los bordes */
+  border: 4px ridge #808080;
+  box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Animación de temblor al golpear la jaula */
+@keyframes shake-cage {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  20% {
+    transform: translate(-3px, 2px);
+  }
+
+  40% {
+    transform: translate(3px, -2px);
+  }
+
+  60% {
+    transform: translate(-3px, -1px);
+  }
+
+  80% {
+    transform: translate(2px, 2px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Animación Easter Egg: Caída de la llave */
+@keyframes drop-key {
+  0% {
+    top: -50px;
+    transform: translateX(-50%) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  80% {
+    top: 90px;
+    transform: translateX(-50%) rotate(360deg);
+  }
+
+  90% {
+    top: 80px;
+    transform: translateX(-50%) rotate(360deg);
+  }
+
+  100% {
+    top: 90px;
+    transform: translateX(-50%) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.key-drop-anim {
+  display: block !important;
+  animation: drop-key 1s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+.jaula-container.shake {
+  animation: shake-cage 0.3s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Sprite del monstruo */
+.monstruo-sprite {
+  position: absolute;
+  /* Posición controlada por JS */
+  width: 86px;
+  height: 86px;
+  background-image: url('../Media/Img/cautivo-normal.gif');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  mix-blend-mode: multiply;
+  /* Borra el fondo blanco */
+}
+
+/* Rejas de la jaula (Estilo alta seguridad con vigas cruzadas y textura) */
+.rejas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image:
+    /* Viga de soporte superior */
+    linear-gradient(0deg, transparent 25px, #1a1a1a 25px, #3a3a3a 30px, #1a1a1a 35px, transparent 35px),
+    /* Viga de soporte inferior */
+    linear-gradient(0deg, transparent 105px, #1a1a1a 105px, #3a3a3a 110px, #1a1a1a 115px, transparent 115px),
+    /* Barrotes cilíndricos verticales (efecto metálico 3D) centrado en el bloque de 50px */
+    repeating-linear-gradient(90deg,
+      transparent 0px,
+      transparent 17px,
+      #000 17px,
+      #333 21px,
+      #999 25px,
+      #333 29px,
+      #000 33px,
+      transparent 33px,
+      transparent 50px);
+  background-position: center;
+  z-index: 2;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9);
+}
+
+/* ========================================================
+   ESTILOS DEL ALTAR (ESTÁTICO)
+   ======================================================== */
+.altar-item {
+  position: absolute;
+  /* Reducir el tamaño a la mitad conservando su escala original entre sí */
+  transform: scale(0.25);
+  transform-origin: top left;
+  z-index: 20;
+}
+
+.altar-interactivo {
+  transition: all 0.2s ease-in-out;
+  cursor: url('../Media/Img/imperdible-abierto-48.png') 31 8, pointer;
+}
+
+.altar-interactivo:hover {
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)) brightness(1.2);
+  margin-top: -15px;
+  /* El salto */
+  z-index: 50;
+  /* Para que al saltar y brillar, se ponga por encima del resto */
+}
+
+@keyframes float-space {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.altar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: float-space 1.7s ease-in-out infinite;
+  pointer-events: none;
+  /* Para no bloquear clicks en el fondo */
+}
+
+.altar-wrapper .altar-item {
+  pointer-events: auto;
+  /* Para que los items sigan siendo clickeables */
+}
+
+
+
+/* ========================================================
+   POSICIONAMIENTO DEL COLLAGE DEL ALTAR
+   ======================================================== */
+
+/* 1. Elementos Centrados (Altar, Espejo, Libros) */
+#altar-base {
+  top: 220px;
+  left: 50%;
+  transform-origin: top center;
+  transform: translateX(-50%) scale(0.7);
+  /* La escala que elegiste */
+}
+
+#altar-espejo {
+  left: 50%;
+  transform-origin: top center;
+  transform: translateX(-50%) scale(0.2);
+  top: 4px;
+  /* Ajusta la altura */
+}
+
+#altar-libros {
+  left: 50%;
+  transform-origin: top center;
+  transform: translateX(-50%) scale(0.23);
+  top: 110px;
+  z-index: 30;
+  /* Fuerza a esta capa a estar por encima de todas las demás (que tienen 20) */
+}
+
+/* 2. El resto de elementos (Cáliz, Daga, Cristales, Velas, etc.) */
+#altar-caliz {
+  top: 330px;
+  left: 435px;
+}
+
+#altar-cristales {
+  top: 60px;
+  left: 420px;
+}
+
+#altar-daga {
+  top: 370px;
+  left: 125px;
+}
+
+#altar-joyas {
+  top: 250px;
+  left: 154px;
+}
+
+#altar-tarot {
+  top: 254px;
+  left: 457px;
+}
+
+#altar-velas {
+  top: 60px;
+  left: 185px;
+}

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BITÁCORA POLÍTICA Y PERSONAL DE LIX - @ayekan.rojo</title>
+  <meta name="description"
+    content="Bitácora política y personal de LIX (@ayekan.rojo) - Pensamientos, ensayos, opiniones, recomendaciones de música, libros y películas estilo retro Windows 95.">
+  <meta name="keywords"
+    content="blog, bitacora, personal, politica, ensayos, opiniones, resenas, musica, libros, peliculas, retro, win95, neocities">
+  <meta name="author" content="LIX">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+
+  <!-- Librería Marked.js para compilar Markdown a HTML nativo -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- ENLACES CSS -->
+  <link rel="stylesheet" href="css/estilos.css?v=73">
+
+</head>
+
+<body>
+
+  <div class="desktop">
+    <div class="os-window-wrapper" id="osWindow" style="gap: 0;">
+
+      <div class="os-window-top bevel-out">
+        <!-- ============ BARRA DE TÍTULO GLOBAL ============ -->
+        <div class="title-bar" id="titleBar">
+          <div class="title-bar-text">📁 BITÁCORA POLÍTICA Y PERSONAL DE LIX - [@ayekan.rojo]</div>
+          <div class="title-bar-controls">
+            <button class="tb-btn bevel-out" id="btnMinimize" title="Minimizar" aria-label="Minimizar">_</button>
+            <button class="tb-btn bevel-out" id="btnMaximize" title="Maximizar" aria-label="Maximizar">□</button>
+            <button class="tb-btn bevel-out" id="btnClose" title="Cerrar" aria-label="Cerrar">×</button>
+          </div>
+        </div>
+
+        <!-- ============ BARRA DE MENÚ GLOBAL ============ -->
+        <div class="menu-bar">
+          <span class="menu-item" data-menu="File">File</span>
+          <span class="menu-item" data-menu="Edit">Edit</span>
+          <span class="menu-item" data-menu="View">View</span>
+          <span class="menu-item" data-menu="Options">Options</span>
+          <span class="menu-item" data-menu="Help">Help</span>
+          <img src="Media/Img/altar/llave-supervivencia.svg" id="inventory-key"
+            style="display: none; float: right; margin-right: 12px; margin-top: 2px; width: 18px; height: 18px; filter: drop-shadow(0 0 2px #fff); cursor: url('Media/Img/imperdible-abierto-48.png') 31 8, pointer;"
+            title="Llave de Contención N-01" onclick="document.getElementById('nav-btn-manual-supervivencia').click()">
+        </div>
+      </div>
+
+      <!-- ============ CUERPO: 3 COLUMNAS SUB-VENTANAS ============ -->
+      <div class="window-body" style="padding-top: 0;">
+
+        <!-- ======================= COLUMNA IZQUIERDA ======================= -->
+        <section class="col col-left os-window-panel bevel-out">
+          <div class="col-header bevel-in">Exploración</div>
+
+          <div class="panel menu-principal bevel-out">
+            <div class="panel-header light">Menú Principal</div>
+            <div class="panel-body bevel-in-thin">
+              <button class="nav-btn bevel-out is-active">Inicio</button>
+              <button class="nav-btn bevel-out">Sobre Mí</button>
+              <button class="nav-btn bevel-out">Ensayos</button>
+              <button class="nav-btn bevel-out">Opiniones</button>
+              <button class="nav-btn bevel-out">Reseñas Libros</button>
+              <button class="nav-btn bevel-out">Reseñas Películas</button>
+              <button class="nav-btn bevel-out">Recomendaciones Música</button>
+              <button class="nav-btn bevel-out">Proyectos</button>
+              <button class="nav-btn bevel-out">Contacto</button>
+
+              <!-- Botones Ocultos del Altar -->
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-libros">Altar Libros</button>
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-velas">Altar Velas</button>
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-cristales">Altar
+                Cristales</button>
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-joyas">Altar Joyas</button>
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-tarot">Altar Tarot</button>
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-daga">Altar Daga</button>
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-altar-caliz">Altar Caliz</button>
+
+              <!-- Botón Oculto Easter Egg -->
+              <button class="nav-btn bevel-out" style="display:none;" id="nav-btn-manual-supervivencia">Manual de
+                Supervivencia</button>
+            </div>
+          </div>
+
+          <!-- ======================= BANNERS ======================= -->
+          <div class="panel player" style="margin-top: 0;">
+            <div class="player-screen" style="display: flex; align-items: center; padding: 4px;">
+              <div class="retro-marquee-container">
+                <div class="retro-marquee-content">
+                  <!-- Primer Set -->
+                  <img src="Media/Img/banner-banda-1.png" alt="Banner Banda 1"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <img src="Media/Img/banner-banda-2.png" alt="Banner Banda 2"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <img src="Media/Img/banner-banda-3.png" alt="Banner Banda 3"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <img src="Media/Img/banner-banda-4.png" alt="Banner Banda 4"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <!-- Segundo Set (Duplicado para el bucle sin cortes) -->
+                  <img src="Media/Img/banner-banda-1.png" alt="Banner Banda 1"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <img src="Media/Img/banner-banda-2.png" alt="Banner Banda 2"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <img src="Media/Img/banner-banda-3.png" alt="Banner Banda 3"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                  <img src="Media/Img/banner-banda-4.png" alt="Banner Banda 4"
+                    style="border: 1px solid #000; image-rendering: pixelated; width: 125px; height: 45px;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================= PANEL BUSCADOR MODIFICADO ======================= -->
+          <div class="panel buscador bevel-out">
+            <div class="panel-header light">Buscador</div>
+            <!-- Convertimos el contenedor en columna para apilar el formulario y los resultados -->
+            <div class="panel-body"
+              style="display: flex; flex-direction: column; gap: 6px; padding: 9px; background: #C0C0C0;">
+              <form id="searchForm" style="display: flex; gap: 6px; width: 100%; margin: 0; box-sizing: border-box;">
+                <input type="text" id="searchInput" class="bevel-in-thin" placeholder="Buscar..." autocomplete="off"
+                  style="flex: 1; min-width: 0; padding: 5px 6px; font-family: var(--font-ui); font-size: 12.5px; background: #fff; color: #101214; border: none; box-sizing: border-box;">
+                <button type="submit" class="buscador-btn bevel-out" aria-label="Buscar"
+                  style="flex-shrink: 0;">🔍</button>
+              </form>
+
+              <!-- Lista hundida estilo Win95 para mostrar los resultados directamente aquí -->
+              <ul id="searchResults" class="bevel-in-thin"
+                style="display: none; background: #fff; padding: 6px; font-size: 11px; max-height: 140px; overflow-y: auto; list-style: none; margin: 4px 0 0; text-align: left; color: #000;">
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel visitor-count bevel-out">
+            <div class="panel-header light">Visitor Count</div>
+            <div class="panel-body">
+              <div class="visitor-frame">
+                <div class="odometer" id="odometer">
+                  <span>0</span><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                </div>
+                <div class="visitor-label">visitas totales</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ======================= PANEL MONSTRUO CAUTIVO ======================= -->
+          <div class="panel monster-cage-panel bevel-out">
+            <div class="panel-header light" style="background: #aa0000; color: #fff;">Contención N-01</div>
+            <div class="panel-body">
+              <div class="jaula-container bevel-in-thick" id="jaulaContenedor" title="¡No golpear el vidrio!">
+                <!-- El sprite del monstruo -->
+                <div id="monstruoCautivo" class="monstruo-sprite"></div>
+                <!-- Las rejas (se dibujan encima) -->
+                <div class="rejas"></div>
+                <div class="vidrio-brillo"></div>
+                <!-- Llave del Easter Egg -->
+                <img src="Media/Img/altar/llave-supervivencia.svg" id="llave-supervivencia" class="altar-interactivo"
+                  alt="Llave Misteriosa"
+                  onclick="document.getElementById('nav-btn-manual-supervivencia').click(); document.getElementById('inventory-key').style.display='block'; this.remove(); localStorage.setItem('easterEggFound', 'true');"
+                  style="display: none; position: absolute; width: 40px; height: 40px; top: 10px; left: 50%; transform: translateX(-50%); z-index: 10; cursor: url('Media/Img/imperdible-abierto-48.png') 31 8, pointer;">
+              </div>
+              <div style="text-align: center; font-size: 10px; margin-top: 4px; color: #555;">PELIGRO: ESPECIMEN
+                GENOCIDA</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ======================= COLUMNA CENTRAL (REESTRUCTURADA) ======================= -->
+        <section class="col col-center os-window-panel bevel-out">
+          <div class="col-header bevel-in" id="colCenterHeader">Inicio</div>
+
+          <!-- [PESTAÑA 1: INICIO] (Visible por defecto) -->
+          <section class="tab-section is-active" id="hueco-inicio">
+            <!-- Aquí cargará: inicio -->
+          </section>
+
+          <!-- [PESTAÑA 2: SOBRE MÍ] -->
+          <section class="tab-section" id="hueco-sobre-mi">
+            <!-- Aquí cargará: sobre mi -->
+          </section>
+
+          <!-- [PESTAÑA 3: ENSAYOS] -->
+          <section class="tab-section" id="hueco-ensayos">
+            <!-- Aquí cargará: ensayos -->
+          </section>
+
+          <!-- [PESTAÑA 4: OPINIONES] -->
+          <section class="tab-section" id="hueco-opiniones">
+            <!-- Aquí cargará: opiniones -->
+          </section>
+
+          <!-- [PESTAÑA 5: RESEÑAS LIBROS] -->
+          <section class="tab-section" id="hueco-resenas-libros">
+            <!-- Aquí cargará: reseñas libros -->
+          </section>
+
+          <!-- [EASTER EGG: MANUAL SUPERVIVENCIA] -->
+          <section class="tab-section" id="hueco-manual-de-supervivencia">
+            <!-- Aquí cargará: manual de supervivencia -->
+          </section>
+
+          <!-- [PESTAÑA 6: RESEÑAS PELÍCULAS] -->
+          <section class="tab-section" id="hueco-resenas-peliculas">
+            <!-- Aquí cargará: reseñas películas -->
+          </section>
+
+          <!-- [PESTAÑA 7: RECOMENDACIONES MÚSICA] -->
+          <section class="tab-section" id="hueco-recomendaciones-musica">
+            <!-- Aquí cargará: recomendaciones musica -->
+          </section>
+
+          <!-- [PESTAÑA 8: PROYECTOS] -->
+          <section class="tab-section" id="hueco-proyectos">
+            <!-- Aquí cargará: proyectos -->
+          </section>
+
+          <!-- [PESTAÑA 9: CONTACTO] -->
+          <section class="tab-section" id="hueco-contacto">
+            <!-- Aquí cargará: contacto -->
+          </section>
+
+          <!-- [PESTAÑAS DEL ALTAR] -->
+          <section class="tab-section" id="hueco-altar-libros"></section>
+          <section class="tab-section" id="hueco-altar-velas"></section>
+          <section class="tab-section" id="hueco-altar-cristales"></section>
+          <section class="tab-section" id="hueco-altar-joyas"></section>
+          <section class="tab-section" id="hueco-altar-tarot"></section>
+          <section class="tab-section" id="hueco-altar-daga"></section>
+          <section class="tab-section" id="hueco-altar-caliz"></section>
+
+          <!-- ======================= ESPACIO DE COLLAGE ======================= -->
+          <div class="panel espacio-collage"
+            style="border: none; background: transparent; padding: 0; margin-top: auto;">
+            <div class="panel-body canvas-espacial" id="canvasEspacial">
+              <!-- Imágenes del altar -->
+              <div class="altar-wrapper">
+                <img src="Media/Img/altar/altar.png" class="altar-item" id="altar-base" alt="Altar">
+                <img src="Media/Img/altar/caliz.png" class="altar-item altar-interactivo" id="altar-caliz" alt="Cáliz"
+                  onclick="document.getElementById('nav-btn-altar-caliz').click()">
+                <img src="Media/Img/altar/cristales.png" class="altar-item altar-interactivo" id="altar-cristales"
+                  alt="Cristales" onclick="document.getElementById('nav-btn-altar-cristales').click()">
+                <img src="Media/Img/altar/daga.png" class="altar-item altar-interactivo" id="altar-daga" alt="Daga"
+                  onclick="document.getElementById('nav-btn-altar-daga').click()">
+                <img src="Media/Img/altar/espejo.png" class="altar-item" id="altar-espejo" alt="Espejo">
+                <img src="Media/Img/altar/joyas.png" class="altar-item altar-interactivo" id="altar-joyas" alt="Joyas"
+                  onclick="document.getElementById('nav-btn-altar-joyas').click()">
+                <img src="Media/Img/altar/libros.png" class="altar-item altar-interactivo" id="altar-libros"
+                  alt="Libros" onclick="document.getElementById('nav-btn-altar-libros').click()">
+                <img src="Media/Img/altar/tarot.png" class="altar-item altar-interactivo" id="altar-tarot" alt="Tarot"
+                  onclick="document.getElementById('nav-btn-altar-tarot').click()">
+                <img src="Media/Img/altar/velas.png" class="altar-item altar-interactivo" id="altar-velas" alt="Velas"
+                  onclick="document.getElementById('nav-btn-altar-velas').click()">
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ======================= COLUMNA DERECHA ======================= -->
+        <section class="col col-right os-window-panel bevel-out">
+          <div class="col-header bevel-in">Perfil y Actualidad</div>
+
+          <div class="panel sobre-mi bevel-out">
+            <div class="panel-header light">Sobre Mí</div>
+            <div class="panel-body light">
+              <!-- ===== PERSONALIZACIÓN: reemplaza el emoji por tu foto real
+                 vía background-image en la clase .profile-photo (ver CSS) ===== -->
+              <div class="profile-photo bevel-in-thin"></div>
+              <p class="profile-bio">Hola! si eres sionista y anticomunista arranca de acá wachin</p>
+            </div>
+          </div>
+
+          <div class="panel bevel-out" id="actualidadPanel">
+            <div class="panel-header light">Actualidad Personal</div>
+            <div class="panel-body light">
+              <div class="actualidad-list">
+                <div class="actualidad-item">
+                  <div class="actualidad-icon">🎬</div>
+                  <div>
+                    <div class="actualidad-label">VIENDO:</div>
+                    <div class="actualidad-value" id="val-viendo">Cargando...</div>
+                  </div>
+                </div>
+                <div class="actualidad-item">
+                  <div class="actualidad-icon">🎧</div>
+                  <div>
+                    <div class="actualidad-label">ESCUCHANDO:</div>
+                    <div class="actualidad-value" id="val-escuchando">Cargando...</div>
+                  </div>
+                </div>
+                <div class="actualidad-item">
+                  <div class="actualidad-icon">📖</div>
+                  <div>
+                    <div class="actualidad-label">LEYENDO:</div>
+                    <div class="actualidad-value" id="val-leyendo">Cargando...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== WIDGET DE ESTADO (MICROBLOG RETRO) ===== -->
+          <div class="panel status-widget bevel-out">
+            <div class="panel-header light">Estado de LIX</div>
+            <div class="panel-body light" style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="bevel-in-thin"
+                style="background: #fff; padding: 7px 9px; font-size: 11.5px; color: #000; min-height: 48px; line-height: 1.45; font-family: var(--font-ui);">
+                💬 <span id="statusText">Programando nuevas funciones retro para la bitácora. ¡Quedando
+                  increíble!</span>
+              </div>
+              <div style="font-size: 9px; color: #555; text-align: right; font-weight: bold;" id="statusTime">
+                Actualizado: Hace 5 minutos</div>
+            </div>
+          </div>
+
+          <!-- ===== WEB DECK PLAYER (skin estilo Winamp clásico) =====
+             Para conectar audio real: agrega un <audio id="playerAudio" src="tu-cancion.mp3"></audio>
+             y engancha play()/pause() en playerToggle() más abajo en el JS. -->
+          <div class="panel player" id="webDeckPlayer">
+            <div class="player-screen">
+              <span class="player-marquee" id="playerMarquee">WEB_DECK_PLAYER.EXE ~ pista 01 · reemplaza este texto con
+                tu playlist ~ </span>
+            </div>
+            <div class="player-eq-row">
+              <div class="player-eq">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <span class="player-time" id="playerTime">00:00</span>
+            </div>
+            <div class="player-controls">
+              <button class="p-btn" id="playerPrev" title="Anterior">⏮</button>
+              <button class="p-btn" id="playerPlay" title="Reproducir">▶</button>
+              <button class="p-btn" id="playerStop" title="Detener">■</button>
+              <button class="p-btn" id="playerNext" title="Siguiente">⏭</button>
+            </div>
+            <div class="player-vol">
+              <label>VOL</label>
+              <input type="range" id="playerVolume" min="0" max="100" value="15">
+            </div>
+            <div class="player-brand">Web Deck Player</div>
+          </div>
+
+          <!-- ===== CHATBOX RETRO ===== -->
+          <div class="panel chatbox-panel bevel-out">
+            <div class="panel-header light">Chat Local (Últimos 7 días)</div>
+            <div class="panel-body light">
+              <div class="chat-messages bevel-in-thin" id="chatMessages">
+                <p style="color: #777; text-align: center; font-style: italic; margin-top: 50px;">Cargando mensajes...
+                </p>
+              </div>
+              <form id="chatForm" class="chat-form" autocomplete="off">
+                <input type="text" id="chatText" class="bevel-in-thin" placeholder="Tu mensaje (Enter para enviar)..."
+                  maxlength="100" required>
+                <button type="submit" class="bevel-out chat-send-btn" id="chatSubmitBtn"
+                  style="display: none;">Enviar</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ============ BARRA DE TAREAS (visible al minimizar/cerrar) ============ -->
+    <div class="taskbar" id="taskbar">
+      <button class="start-btn bevel-out">▦ Inicio</button>
+      <button class="taskbar-window-btn bevel-out" id="taskbarRestore">📁 Bitácora Política y Personal</button>
+    </div>
+
+    <!-- ============ MODAL / CUADRO DE DIÁLOGO ============ -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-box bevel-out">
+        <div class="title-bar">
+          <div class="title-bar-text" id="modalTitle">Aviso</div>
+          <div class="title-bar-controls">
+            <button class="tb-btn bevel-out" id="modalCloseX">×</button>
+          </div>
+        </div>
+        <div class="modal-body" id="modalBody">Mensaje</div>
+        <div class="modal-actions">
+          <button class="bevel-out" id="modalOk">Aceptar</button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- ENLACES JS -->
+    <script src="js/codigo.js?v=71"></script>
+  </div>
+</body>
+
+</html>
